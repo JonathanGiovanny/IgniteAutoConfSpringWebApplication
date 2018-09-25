@@ -18,12 +18,12 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public List<Student> getAll() {
 		List<Student> students = new ArrayList<>();
-		students = studentRepo.findAll();
+		students = studentRepo.parcimon();
 		return students;
 	}
 
 	@Override
 	public Student getOne(Long id) {
-		return studentRepo.findOne(id);
+		return studentRepo.findById(id).get();
 	}
 }

@@ -6,12 +6,11 @@ import org.apache.ignite.springdata20.repository.IgniteRepository;
 import org.apache.ignite.springdata20.repository.config.Query;
 import org.apache.ignite.springdata20.repository.config.RepositoryConfig;
 
-import com.ignite.model.Student;
+import com.ignite.model.Signature;
 
-@RepositoryConfig(cacheName = "StudentCache")
-public interface StudentRepository extends IgniteRepository<Student, Long> {
+@RepositoryConfig(cacheName = "SignatureCache")
+public interface SignatureRepository extends IgniteRepository<Signature, Long> {
 
-	@Query("SELECT * FROM Student ORDER BY 1")
-	public List<Student> parcimon();
-
+	@Query("SELECT * FROM SIGNATURE ORDER BY 1")
+	public List<Signature> getAll();
 }

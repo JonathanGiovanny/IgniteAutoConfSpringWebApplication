@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.ignite.utilities.annotations.IgniteTable;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +21,7 @@ import lombok.experimental.Accessors;
 @Table
 @NoArgsConstructor
 @AllArgsConstructor
+@IgniteTable(cacheName = "SignatureCache")
 public class Signature implements Serializable {
 
 	/**

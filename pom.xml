@@ -23,7 +23,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<ignite.version>2.6.0</ignite.version>
+		<ignite.version>2.7.0-SNAPSHOT</ignite.version>
 	</properties>
 
 	<dependencies>
@@ -49,7 +49,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.ignite</groupId>
-			<artifactId>ignite-spring-data</artifactId>
+			<artifactId>ignite-spring-data_2.0</artifactId>
 			<version>${ignite.version}</version>
 		</dependency>
 

@@ -1,26 +1,27 @@
 package com.ignite;
 
+import java.util.Collection;
+import java.util.Map;
+
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
 import org.apache.ignite.Ignition;
 import org.apache.ignite.cache.store.jdbc.dialect.H2Dialect;
+import org.apache.ignite.configuration.CacheConfiguration;
 import org.apache.ignite.configuration.IgniteConfiguration;
-import org.apache.ignite.springdata.repository.config.EnableIgniteRepositories;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.ignite.springdata20.repository.config.EnableIgniteRepositories;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import com.ignite.model.Signature;
 import com.ignite.model.Student;
 import com.ignite.persistence.H2DataSourceFactory;
 import com.ignite.utilities.IgniteAutoConfig;
 
 @Component
-@EnableIgniteRepositories
+@EnableIgniteRepositories("com.ignite.repository")
 public class IgniteConfig {
 
-	@Autowired
-	private Ignite igniteInstance;
-	
 	@Bean
 	public Ignite igniteInstance() {
 		try {
@@ -28,16 +29,22 @@ public class IgniteConfig {
 			igniteConfiguration.setClientMode(false);
 
 			IgniteAutoConfig.addClass(Student.class);
+			IgniteAutoConfig.addClass(Signature.class);
 
 			// DS for the schema where I have the data
 			H2DataSourceFactory dsFactory = H2DataSourceFactory.getInstance();
 
 			// Generate the cacheConfiguration for the classes added before
-			igniteConfiguration.setCacheConfiguration(IgniteAutoConfig.generateCacheConfiguration(dsFactory, new H2Dialect()));
+			Map<String, CacheConfiguration<?, ?>> cachesConfigData = IgniteAutoConfig.generateCacheConfiguration(dsFactory, new H2Dialect());
+			Collection<CacheConfiguration<?, ?>> cachesConfig = cachesConfigData.values();
+
+			igniteConfiguration.setCacheConfiguration(cachesConfig.toArray(new CacheConfiguration<?, ?>[cachesConfig.size()]));
 
 			Ignite ignite = Ignition.start(igniteConfiguration);
+
 			System.out.println("[IgniteServerNode] Node started");
 			IgniteCache<Long, Student> cache = ignite.getOrCreateCache("StudentCache");
+			// Load the cache
 			cache.loadCache(null);
 
 			return ignite;
@@ -47,10 +54,5 @@ public class IgniteConfig {
 		}
 
 		return null;
-	}
-
-	@Bean
-	public IgniteCache<?, ?> igniteCache() {
-		return igniteInstance.getOrCreateCache(IgniteAutoConfig.getCacheNames().get(0));
 	}
 }
