@@ -12,6 +12,6 @@ import com.ignite.model.Student;
 public interface StudentRepository extends IgniteRepository<Student, Long> {
 
 	@Query("SELECT * FROM Student ORDER BY 1")
-	public List<Student> parcimon();
+	public List<Student> findAll();
 
 }

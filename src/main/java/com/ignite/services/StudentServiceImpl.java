@@ -18,7 +18,7 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public List<Student> getAll() {
 		List<Student> students = new ArrayList<>();
-		students = studentRepo.parcimon();
+		students = studentRepo.findAll();
 		return students;
 	}
 

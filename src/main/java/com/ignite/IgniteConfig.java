@@ -36,6 +36,8 @@ public class IgniteConfig {
 
 			// Generate the cacheConfiguration for the classes added before
 			Map<String, CacheConfiguration<?, ?>> cachesConfigData = IgniteAutoConfig.generateCacheConfiguration(dsFactory, new H2Dialect());
+//			cachesConfigData.get("SignatureCache").setReadThrough(false);
+
 			Collection<CacheConfiguration<?, ?>> cachesConfig = cachesConfigData.values();
 
 			igniteConfiguration.setCacheConfiguration(cachesConfig.toArray(new CacheConfiguration<?, ?>[cachesConfig.size()]));

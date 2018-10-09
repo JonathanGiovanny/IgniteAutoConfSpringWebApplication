@@ -13,4 +13,7 @@ public interface SignatureRepository extends IgniteRepository<Signature, Long> {
 
 	@Query("SELECT * FROM SIGNATURE ORDER BY 1")
 	public List<Signature> getAll();
+
+	@Query("SELECT COUNT(0) FROM SIGNATURE")
+	public long count();
 }
