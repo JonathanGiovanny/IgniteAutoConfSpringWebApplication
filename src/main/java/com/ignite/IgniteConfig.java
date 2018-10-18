@@ -1,6 +1,7 @@
 package com.ignite;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ignite.Ignite;
@@ -36,6 +37,7 @@ public class IgniteConfig {
 
 			// Generate the cacheConfiguration for the classes added before
 			Map<String, CacheConfiguration<?, ?>> cachesConfigData = IgniteAutoConfig.generateCacheConfiguration(dsFactory, new H2Dialect());
+			// Modify specific cache settings
 //			cachesConfigData.get("SignatureCache").setReadThrough(false);
 
 			Collection<CacheConfiguration<?, ?>> cachesConfig = cachesConfigData.values();
@@ -45,9 +47,15 @@ public class IgniteConfig {
 			Ignite ignite = Ignition.start(igniteConfiguration);
 
 			System.out.println("[IgniteServerNode] Node started");
-			IgniteCache<Long, Student> cache = ignite.getOrCreateCache("StudentCache");
-			// Load the cache
-			cache.loadCache(null);
+
+			// Start all the caches
+			List<String> cacheNames = IgniteAutoConfig.getCacheNames();
+			for (String cacheName : cacheNames) {
+				IgniteCache<?, ?> cache = ignite.getOrCreateCache(cacheName);
+				
+				// Load the cache
+				cache.loadCache(null);
+			}
 
 			return ignite;
 

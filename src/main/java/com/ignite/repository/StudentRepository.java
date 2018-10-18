@@ -11,7 +11,7 @@ import com.ignite.model.Student;
 @RepositoryConfig(cacheName = "StudentCache")
 public interface StudentRepository extends IgniteRepository<Student, Long> {
 
-	@Query("SELECT * FROM Student ORDER BY 1")
-	public List<Student> findAll();
+	@Query("SELECT * FROM Student ORDER BY id")
+	public List<Student> findAllByOrderById();
 
 }

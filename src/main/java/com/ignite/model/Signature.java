@@ -28,15 +28,15 @@ public class Signature implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -2067279529146860257L;
-	
+
 	@Id
 	@GeneratedValue
-	@Column(name = "SIGNATURE_ID")	
+	@Column(name = "SIGNATURE_ID")
 	private Long id;
-	
-	@Column(name = "SIGNATURE_NAME")	
+
+	@Column(name = "SIGNATURE_NAME")
 	private String name;
-	
-	@Column(name = "SIGNATURE_POINTS")	
+
+	@Column(name = "SIGNATURE_POINTS")
 	private Integer points;
 }

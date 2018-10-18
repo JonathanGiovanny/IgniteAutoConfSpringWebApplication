@@ -18,7 +18,6 @@ public class SignatureServiceImpl implements SignatureService {
 	@Override
 	public List<Signature> getAll() {
 		List<Signature> signatures = new ArrayList<>();
-		System.out.println("Total signatures: " + count());
 		signatures = signatureRepo.getAll();
 		return signatures;
 	}
@@ -26,9 +25,5 @@ public class SignatureServiceImpl implements SignatureService {
 	@Override
 	public Signature getOne(Long id) {
 		return signatureRepo.findById(id).get();
-	}
-
-	private long count() {
-		return signatureRepo.count();
 	}
 }

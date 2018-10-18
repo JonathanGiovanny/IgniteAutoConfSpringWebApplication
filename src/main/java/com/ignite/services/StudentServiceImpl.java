@@ -1,6 +1,5 @@
 package com.ignite.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,7 @@ public class StudentServiceImpl implements StudentService {
 	
 	@Override
 	public List<Student> getAll() {
-		List<Student> students = new ArrayList<>();
-		students = studentRepo.findAll();
+		List<Student> students = studentRepo.findAllByOrderById();
 		return students;
 	}
 
